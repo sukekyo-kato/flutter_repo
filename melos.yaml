@@ -1,0 +1,18 @@
+name: flutter_repo
+
+packages:
+  - packages/*
+
+scripts:
+  get-dep:
+    exec: fvm flutter pub get
+  clean:
+    exec: fvm flutter clean
+  analyze:
+    exec: fvm flutter analyze
+  format:
+    exec: fvm dart format lib/
+  build-runner:
+    exec: fvm flutter pub run build_runner build --delete-conflicting-outputs
+  test:
+    exec: fvm flutter test
