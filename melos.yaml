@@ -1,5 +1,9 @@
 name: flutter_repo
 
+repository: https://github.com/sukekyo-net/flutter_repo
+
+sdkPath: .fvm/flutter_sdk
+
 packages:
   - packages/*
 
