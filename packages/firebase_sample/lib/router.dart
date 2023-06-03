@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import 'feature/entry/ui/entry_page.dart';
 import 'main.dart';
 
 part 'router.g.dart';
@@ -21,15 +22,15 @@ final routerProvider = Provider<GoRouter>((ref) {
   );
 });
 
-@TypedGoRoute<HomeRoute>(
+@TypedGoRoute<EntryRoute>(
   path: '/',
-  name: 'Home',
+  name: 'Entry',
 )
-class HomeRoute extends GoRouteData {
-  const HomeRoute();
+class EntryRoute extends GoRouteData {
+  const EntryRoute();
 
   @override
-  Widget build(BuildContext context, GoRouterState state) => const _DummyHome();
+  Widget build(BuildContext context, GoRouterState state) => const EntryPage();
 }
 
 class _DummyHome extends StatelessWidget {
