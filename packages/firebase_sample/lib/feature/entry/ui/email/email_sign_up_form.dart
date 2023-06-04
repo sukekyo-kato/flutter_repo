@@ -1,4 +1,4 @@
-import 'package:firebase_sample/logger.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:formz/formz.dart';
@@ -6,6 +6,8 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../../../../logger.dart';
+import '../../../user/use_case/auth/sign_in.dart';
 import 'component/email_input.dart';
 import 'component/passwd_input.dart';
 
@@ -45,8 +47,11 @@ class _SignUpFormState extends _$SignUpFormState {
     );
   }
 
-  void submit() {
-    // TODO:
+  void submit() async {
+    await ref.read(sigUpEmailProvider.notifier).execute(
+          email: state.email.value,
+          passwd: state.passwd.value,
+        );
   }
 }
 
@@ -78,6 +83,11 @@ class EmailSignUpForm extends ConsumerWidget {
     // 決定ボタンを押せるか
     final canSubmit = <FormzInput>[mail, passwd, confirmPasswd]
         .every((formz) => formz.isValid);
+
+    // ログイン処理中はぐるぐる
+    if (ref.watch(sigUpEmailProvider).isLoading) {
+      return CircularProgressIndicator.adaptive();
+    }
 
     return Column(
       mainAxisSize: MainAxisSize.min,

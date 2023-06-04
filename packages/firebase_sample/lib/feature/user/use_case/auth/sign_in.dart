@@ -1,6 +1,8 @@
 import 'package:firebase_sample/feature/user/data/firebase/auth.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../../../../logger.dart';
+
 part 'sign_in.g.dart';
 
 final AsyncValue signInProcess = AsyncData(null);
@@ -9,7 +11,7 @@ final AsyncValue signInProcess = AsyncData(null);
 @riverpod
 class SignInAnonymous extends _$SignInAnonymous {
   @override
-  FutureOr<void> build() {}
+  Future<void> build() async {}
 
   Future<void> execute() async {
     state = AsyncLoading();
@@ -19,20 +21,47 @@ class SignInAnonymous extends _$SignInAnonymous {
   }
 }
 
+/// メールサインアップ
+@riverpod
+class SigUpEmail extends _$SigUpEmail {
+  @override
+  Future<void> build() async {}
+
+  // サインアップする
+  Future<void> execute({required String email, required String passwd}) async {
+    state = AsyncLoading();
+    state = await AsyncValue.guard(() async {
+      final user = await ref
+          .read(firebaseAuthProvider)
+          .createUserWithEmailAndPassword(email: email, password: passwd);
+      logger.i('SignInEmail create user: $user');
+    });
+  }
+}
+
 /// メールサインイン
 @riverpod
 class SignInEmail extends _$SignInEmail {
   @override
-  FutureOr<void> build() {}
+  Future<void> build() async {}
 
-  Future<void> execute() async {}
+  // サインインする
+  Future<void> execute({required String email, required String passwd}) async {
+    state = AsyncLoading();
+    state = await AsyncValue.guard(() async {
+      final user = await ref
+          .read(firebaseAuthProvider)
+          .signInWithEmailAndPassword(email: email, password: passwd);
+      logger.i('SignInEmail signIn  user: $user');
+    });
+  }
 }
 
 /// googleサインイン
 @riverpod
 class SignInGoogle extends _$SignInGoogle {
   @override
-  FutureOr<void> build() {}
+  Future<void> build() async {}
 
   Future<void> execute() async {}
 }
@@ -41,7 +70,7 @@ class SignInGoogle extends _$SignInGoogle {
 @riverpod
 class SignInApple extends _$SignInApple {
   @override
-  FutureOr<void> build() {}
+  Future<void> build() async {}
 
   Future<void> execute() async {}
 }
@@ -50,7 +79,7 @@ class SignInApple extends _$SignInApple {
 @riverpod
 class SignInOpenId extends _$SignInOpenId {
   @override
-  FutureOr<void> build() {}
+  Future<void> build() async {}
 
   Future<void> execute() async {}
 }

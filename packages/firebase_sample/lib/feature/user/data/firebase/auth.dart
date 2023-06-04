@@ -3,7 +3,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'auth.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 FirebaseAuth firebaseAuth(FirebaseAuthRef ref) {
   return FirebaseAuth.instance;
 }

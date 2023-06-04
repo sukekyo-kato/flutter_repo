@@ -1,4 +1,3 @@
-import 'package:firebase_sample/feature/entry/ui/email/component/passwd_input.dart';
 import 'package:firebase_sample/logger.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -7,7 +6,9 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../../../user/use_case/auth/sign_in.dart';
 import 'component/email_input.dart';
+import 'component/passwd_input.dart';
 
 part 'email_login_form.freezed.dart';
 part 'email_login_form.g.dart';
@@ -37,7 +38,10 @@ class _FormState extends _$FormState {
   }
 
   void submit() {
-    // TODO
+    ref.read(signInEmailProvider.notifier).execute(
+          email: state.email.value,
+          passwd: state.passwd.value,
+        );
   }
 }
 
@@ -66,6 +70,11 @@ class EmailLoginForm extends ConsumerWidget {
     // 決定ボタンを押せるか
     final canSubmit =
         <FormzInput>[mail, passwd].every((formz) => formz.isValid);
+
+    // ログイン処理中はぐるぐる
+    if (ref.watch(signInEmailProvider).isLoading) {
+      return CircularProgressIndicator.adaptive();
+    }
 
     return Column(
       mainAxisSize: MainAxisSize.min,

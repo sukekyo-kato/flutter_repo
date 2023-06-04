@@ -6,7 +6,7 @@ part of 'sign_in.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$signInAnonymousHash() => r'6312639cc31815ec55a3e2ab27f1d0b5c2e9a2ea';
+String _$signInAnonymousHash() => r'4b785d97eaabd18fd34956ea720d485c1bf12d5f';
 
 /// 匿名サインイン
 ///
@@ -24,7 +24,24 @@ final signInAnonymousProvider =
 );
 
 typedef _$SignInAnonymous = AutoDisposeAsyncNotifier<void>;
-String _$signInEmailHash() => r'4effaf1d951f75fb1f1a17469f22690a0e35277c';
+String _$sigUpEmailHash() => r'17da0789fc3b973159f5c02c898c1986be8df363';
+
+/// メールサインアップ
+///
+/// Copied from [SigUpEmail].
+@ProviderFor(SigUpEmail)
+final sigUpEmailProvider =
+    AutoDisposeAsyncNotifierProvider<SigUpEmail, void>.internal(
+  SigUpEmail.new,
+  name: r'sigUpEmailProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$sigUpEmailHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$SigUpEmail = AutoDisposeAsyncNotifier<void>;
+String _$signInEmailHash() => r'a1a141fe228f3327e0baa98c7ab60c9b85f1d235';
 
 /// メールサインイン
 ///
@@ -41,7 +58,7 @@ final signInEmailProvider =
 );
 
 typedef _$SignInEmail = AutoDisposeAsyncNotifier<void>;
-String _$signInGoogleHash() => r'b143f20696850e6318a4a0ca1d4c816bc24a0b7b';
+String _$signInGoogleHash() => r'47300e0628d40a2a58736c0c25f99946d09a6cc7';
 
 /// googleサインイン
 ///
@@ -58,7 +75,7 @@ final signInGoogleProvider =
 );
 
 typedef _$SignInGoogle = AutoDisposeAsyncNotifier<void>;
-String _$signInAppleHash() => r'16ffb97c7254f4e3c555185cfbb4f69e9df7e8df';
+String _$signInAppleHash() => r'83d3027cb37e26c70a12fc66eaf5371c3025acaa';
 
 /// appleサインイン
 ///
@@ -75,7 +92,7 @@ final signInAppleProvider =
 );
 
 typedef _$SignInApple = AutoDisposeAsyncNotifier<void>;
-String _$signInOpenIdHash() => r'fd31da3a3b3b80140c8299e23081d2c3dbabe83a';
+String _$signInOpenIdHash() => r'f065959cc0d501599086fb1b9a7495b040e10d8d';
 
 /// OpenIdサインイン
 ///
