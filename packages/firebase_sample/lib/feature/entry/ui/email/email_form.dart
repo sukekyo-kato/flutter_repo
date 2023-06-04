@@ -1,4 +1,5 @@
 import 'package:firebase_sample/feature/entry/ui/email/email_login_form.dart';
+import 'package:firebase_sample/feature/entry/ui/email/email_sign_up_form.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -15,7 +16,7 @@ Future<void> showEmailDialog(BuildContext context) async {
         content: Consumer(
           builder: (context, ref, parent) =>
               ref.watch(_isNewUserProvider)
-              ? SizedBox() // TODO
+              ? EmailSignUpForm()
               : EmailLoginForm(),
         ),
       );

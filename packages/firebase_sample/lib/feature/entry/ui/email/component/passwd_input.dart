@@ -45,3 +45,32 @@ class PasswdInput extends FormzInput<String, FromInputError> {
     return null;
   }
 }
+
+/// 新規パスワード入力制御
+class NewPasswdInput extends FormzInput<String, FromInputError> {
+  const NewPasswdInput.pure() : super.pure('');
+  const NewPasswdInput.dirty({String value = ''}) : super.dirty(value);
+
+  RegExp get _passwdRegExp => RegExp(r'^(?=.*[a-z])(?=.*\d).{6,}$');
+
+  @override
+  FromInputError? validator(String value) {
+    if (value.isEmpty) return FromInputError.empty;
+    if (value.length < 6) return FromInputError.tooShort;
+    if (!_passwdRegExp.hasMatch(value)) return FromInputError.invalidFormat;
+    return null;
+  }
+}
+
+/// 確認用パスワード入力制御 (Record型)
+class ConfirmPasswdInput extends FormzInput<(String, String), FromInputError> {
+  const ConfirmPasswdInput.pure() : super.pure(('', ''));
+
+  const ConfirmPasswdInput.dirty({String passwd = '', String confirm = ''})
+      : super.dirty((passwd, confirm));
+
+  @override
+  FromInputError? validator((String passwd, String confirm) value) {
+    return value.$1 == value.$2 ? null : FromInputError.notMatch;
+  }
+}
