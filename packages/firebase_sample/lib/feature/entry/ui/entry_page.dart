@@ -3,6 +3,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'email/email_form.dart';
+
 class EntryPage extends StatelessWidget {
   const EntryPage({super.key});
 
@@ -70,7 +72,8 @@ class _SignInButton extends StatelessWidget {
     final provider = signInEmailProvider;
     return _SignInButton(
       loading: ref.watch(provider),
-      onPressed: ref.read(provider.notifier).execute,
+      onPressed: () =>
+          showEmailDialog(ref.context),
       buttonText: 'Email ログイン',
     );
   }
