@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_sample/feature/user/data/firebase/auth.dart';
-import 'package:firebase_sample/feature/user/data/google/auth.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../../logger.dart';
@@ -69,15 +68,8 @@ class SignInGoogle extends _$SignInGoogle {
     state = AsyncLoading();
     state = await AsyncValue.guard(() async {
       // SHA1登録をすること
-      final googleAuth = await ref.read(googleSignInProvider).signIn();
-      if (googleAuth == null) {
-        throw Exception('no account.');
-      }
-      final googleCredential =
-          ref.read(userCredentialProvider(await googleAuth.authentication));
-
       final userCredential =
-          await FirebaseAuth.instance.signInWithCredential(googleCredential);
+          await FirebaseAuth.instance.signInWithProvider(GoogleAuthProvider());
       logger.i('SignInGoogle user: ${userCredential.user}');
     });
   }
