@@ -23,6 +23,12 @@
             "request": "launch",
             "type": "dart",
             "flutterMode": "release"
+        },
+        {
+            "name": "firebase_sample",
+            "cwd": "packages/firebase_sample",
+            "request": "launch",
+            "type": "dart",
         }
     ]
 }
