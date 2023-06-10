@@ -75,7 +75,7 @@ final signInGoogleProvider =
 );
 
 typedef _$SignInGoogle = AutoDisposeAsyncNotifier<void>;
-String _$signInAppleHash() => r'83d3027cb37e26c70a12fc66eaf5371c3025acaa';
+String _$signInAppleHash() => r'f2121ab09e3ca54b2da0ef38bc4a0df26a962521';
 
 /// appleサインイン
 ///

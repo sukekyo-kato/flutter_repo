@@ -89,7 +89,18 @@ class SignInApple extends _$SignInApple {
   @override
   Future<void> build() async {}
 
-  Future<void> execute() async {}
+  Future<void> execute() async {
+    state = AsyncLoading();
+    state = await AsyncValue.guard(() async {
+      try {
+        final userCredential =
+            await FirebaseAuth.instance.signInWithProvider(AppleAuthProvider());
+        logger.i('SignInApple user: ${userCredential.user}');
+      } catch (e) {
+        logger.e(e);
+      }
+    });
+  }
 }
 
 /// OpenIdサインイン
